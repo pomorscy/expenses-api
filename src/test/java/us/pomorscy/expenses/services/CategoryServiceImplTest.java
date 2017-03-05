@@ -1,19 +1,17 @@
 package us.pomorscy.expenses.services;
 
-import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 import us.pomorscy.expenses.domain.Category;
 import us.pomorscy.expenses.persistance.CategoryRepository;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+import static us.pomorscy.expenses.TestDataHelper.SAMPLE_CATEGORIES;
 
 public class CategoryServiceImplTest{
 
@@ -39,9 +37,7 @@ public class CategoryServiceImplTest{
     @Test
     public void shouldReadAndReturnAllCategories(){
         //given
-        Category foodCategory = new Category(UUID.randomUUID().toString(), "Food");
-        Category houseCategory = new Category(UUID.randomUUID().toString(), "House");
-        List<Category> expectedCategories = ImmutableList.of(foodCategory, houseCategory);
+        List<Category> expectedCategories = SAMPLE_CATEGORIES;
         when(categoryRepositoryMock.findAll()).thenReturn(expectedCategories);
         //when
         Iterable<Category> actualCategories = categoryService.readAll();
@@ -106,9 +102,7 @@ public class CategoryServiceImplTest{
     @Test
     public void shouldReturnIterableOfFoundCategories(){
         //given
-        Category foodCategory = new Category("foodId", "Food");
-        Category coolCategory = new Category("coolId", "Cool");
-        List<Category> expectedCategories = ImmutableList.of(foodCategory, coolCategory);
+        List<Category> expectedCategories = SAMPLE_CATEGORIES;
         when(categoryRepositoryMock.findByNameIgnoreCaseContaining("oo")).thenReturn(expectedCategories);
         //when
         Iterable<Category> actualCategories = categoryService.findByName("oo");
