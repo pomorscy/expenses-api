@@ -21,12 +21,13 @@ import us.pomorscy.expenses.domain.Category;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static us.pomorscy.expenses.persistance.CategoryRepositoryIT.DATASET;
 
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = ExpensesApplication.class)
-@DatabaseSetup(CategoryRepositoryIT.DATASET)
+@DatabaseSetup(DATASET)
 @DirtiesContext
 @Rollback
 @Transactional
@@ -84,6 +85,17 @@ public class CategoryRepositoryIT{
         String expectedName = "Trip";
         //when
         Category actualCategory = categoryRepository.save(new Category(expectedName));
+        //then
+        assertThat(actualCategory.getName()).isEqualTo(expectedName);
+        assertThat(actualCategory.getId().matches(UUID_PATTERN)).isTrue();
+    }
+
+    @Test
+    public void shouldGenerateNewUuidWhenSavingWithEmptyId(){
+        //given
+        String expectedName = "Trip";
+        //when
+        Category actualCategory = categoryRepository.save(new Category("", expectedName));
         //then
         assertThat(actualCategory.getName()).isEqualTo(expectedName);
         assertThat(actualCategory.getId().matches(UUID_PATTERN)).isTrue();

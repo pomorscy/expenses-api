@@ -26,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService{
     public Iterable<Category> readAll(){
         try{
             return categoryRepository.findAll();
-        }catch (Exception ex){
+        } catch (Exception ex){
             logger.error("Failed to find categories.", ex);
             return Collections.emptyList();
         }
@@ -61,5 +61,32 @@ public class CategoryServiceImpl implements CategoryService{
             logger.error("Failed to find category by name: " + categoryName, ex);
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public Optional<Category> findById(String categoryId){
+        Category category;
+        try{
+            category = categoryRepository.findOne(categoryId);
+            if (category != null){
+                return Optional.of(category);
+            }
+        } catch (Exception ex){
+            logger.error("Failed to find category by id: " + categoryId, ex);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Category> update(Category category){
+        try{
+            Category oldCategory = categoryRepository.findOne(category.getId());
+            if (oldCategory != null){
+                return Optional.of(categoryRepository.save(category));
+            }
+        } catch (Exception ex){
+            logger.error("Failed to update category: " + category, ex);
+        }
+        return Optional.empty();
     }
 }

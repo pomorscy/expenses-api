@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+import static us.pomorscy.expenses.TestDataHelper.FOOD_CATEGORY;
 import static us.pomorscy.expenses.TestDataHelper.SAMPLE_CATEGORIES;
 
 public class CategoryServiceImplTest{
@@ -49,7 +50,7 @@ public class CategoryServiceImplTest{
     @Test
     public void shouldReturnEmptyIterableWhenFindAllFailed(){
         //given
-        doThrow(new RuntimeException()).when(categoryRepositoryMock).findAll();
+        when(categoryRepositoryMock.findAll()).thenThrow(new RuntimeException());
         //when
         Iterable<Category> actualCategories = categoryService.readAll();
         //then
@@ -114,11 +115,81 @@ public class CategoryServiceImplTest{
     @Test
     public void shouldReturnEmptyIterableWhenFindByNameFailed(){
         //given
-        doThrow(new RuntimeException()).when(categoryRepositoryMock).findByNameIgnoreCaseContaining(anyString());
+        when(categoryRepositoryMock.findByNameIgnoreCaseContaining(anyString())).thenThrow(new RuntimeException());
         //when
         Iterable<Category> actualCategories = categoryService.findByName("Food");
         //then
         assertThat(actualCategories).isEmpty();
     }
 
+    @Test
+    public void shouldReturnFoundCategory(){
+        //given
+        Category expectedCategory = FOOD_CATEGORY;
+        when(categoryRepositoryMock.findOne(anyString())).thenReturn(expectedCategory);
+        //when
+        Optional<Category> actualCategory = categoryService.findById(expectedCategory.getId());
+        //then
+        assertThat(actualCategory.isPresent()).isTrue();
+        assertThat(actualCategory.get()).isEqualTo(expectedCategory);
+    }
+
+    @Test
+    public void shouldReturnEmptyIfCategoryNotFound(){
+        //given
+        when(categoryRepositoryMock.findOne(anyString())).thenReturn(null);
+        //when
+        Optional<Category> actualCategory = categoryService.findById("someId");
+        //then
+        assertThat(actualCategory.isPresent()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnEmptyWhenFindOneFailed(){
+        //given
+        when(categoryRepositoryMock.findOne(anyString())).thenThrow(new RuntimeException());
+        //when
+        Optional<Category> actualCategory = categoryService.findById("someId");
+        //then
+        assertThat(actualCategory.isPresent()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnUpdatedCategory(){
+        //given
+        Category oldCategory = FOOD_CATEGORY;
+        Category expectedCategory = new Category(oldCategory.getId(), "New name");
+        when(categoryRepositoryMock.findOne(expectedCategory.getId())).thenReturn(oldCategory);
+        when(categoryRepositoryMock.save(expectedCategory)).thenReturn(expectedCategory);
+        //when
+        Optional<Category> actualCategory = categoryService.update(expectedCategory);
+        //then
+        assertThat(actualCategory.isPresent()).isTrue();
+        assertThat(actualCategory.get()).isEqualTo(expectedCategory);
+    }
+
+    @Test
+    public void shouldReturnEmptyWhenCategoryDoesNotExist(){
+        //given
+        Category notExistingCategory = new Category("notExistingId", "New name");
+        when(categoryRepositoryMock.findOne(notExistingCategory.getId())).thenReturn(null);
+        //when
+        Optional<Category> actualCategory = categoryService.update(notExistingCategory);
+        //then
+        assertThat(actualCategory.isPresent()).isFalse();
+        verify(categoryRepositoryMock, never()).save(any(Category.class));
+    }
+
+    @Test
+    public void shouldReturnEmptyWhenCategorySaveFailed(){
+        //given
+        Category oldCategory = FOOD_CATEGORY;
+        Category expectedCategory = new Category(oldCategory.getId(), "New name");
+        when(categoryRepositoryMock.findOne(expectedCategory.getId())).thenReturn(oldCategory);
+        when(categoryRepositoryMock.save(expectedCategory)).thenThrow(new RuntimeException());
+        //when
+        Optional<Category> actualCategory = categoryService.update(expectedCategory);
+        //then
+        assertThat(actualCategory.isPresent()).isFalse();
+    }
 }

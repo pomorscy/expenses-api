@@ -433,6 +433,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_example_response">Example response</a></li>
 </ul>
 </li>
+<li><a href="#_get_category">Get category</a>
+<ul class="sectlevel3">
+<li><a href="#_path_parameters">Path parameters</a></li>
+<li><a href="#_response_structure_2">Response structure</a></li>
+<li><a href="#_example_request_2">Example request</a></li>
+<li><a href="#_example_response_2">Example response</a></li>
+</ul>
+</li>
+<li><a href="#_create_category">Create category</a>
+<ul class="sectlevel3">
+<li><a href="#_request_structure">Request structure</a></li>
+<li><a href="#_response_structure_3">Response structure</a></li>
+<li><a href="#_example_request_3">Example request</a></li>
+<li><a href="#_example_response_3">Example response</a></li>
+</ul>
+</li>
+<li><a href="#_update_category">Update category</a>
+<ul class="sectlevel3">
+<li><a href="#_request_structure_2">Request structure</a></li>
+<li><a href="#_response_structure_4">Response structure</a></li>
+<li><a href="#_example_request_4">Example request</a></li>
+<li><a href="#_example_response_4">Example response</a></li>
+</ul>
+</li>
+<li><a href="#_delete_category">Delete category</a>
+<ul class="sectlevel3">
+<li><a href="#_path_parameters_2">Path parameters</a></li>
+<li><a href="#_example_request_5">Example request</a></li>
+<li><a href="#_example_response_5">Example response</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -577,7 +608,7 @@ use of HTTP status codes.</p>
 <h4 id="_example_request"><a class="link" href="#_example_request">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -H 'Accept: application/json;charset=UTF-8'</code></pre>
 </div>
 </div>
 </div>
@@ -589,7 +620,296 @@ use of HTTP status codes.</p>
 Content-Type: application/json;charset=UTF-8
 Content-Length: 121
 
-[{"id":"d4fb734d-34cb-48e4-9442-8f24a8846b28","name":"Food"},{"id":"5e19234c-3867-4db0-a582-23e5a6e66cc9","name":"Cool"}]</code></pre>
+[{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"Food"},{"id":"d4344204-35d3-48f2-a348-4488f6861249","name":"Cool"}]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_category"><a class="link" href="#_get_category">Get category</a></h3>
+<div class="paragraph">
+<p>A <code>GET</code> request is used to get a category details.</p>
+</div>
+<div class="sect3">
+<h4 id="_path_parameters"><a class="link" href="#_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. /categories/{categoryId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>categoryId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id of requested category</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_response_structure_2"><a class="link" href="#_response_structure_2">Response structure</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id of the category</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the category</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_request_2"><a class="link" href="#_example_request_2">Example request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories/c0111df8-96c0-4c33-93f5-f3222931fce2' -i -H 'Accept: application/json;charset=UTF-8'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_response_2"><a class="link" href="#_example_response_2">Example response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 59
+
+{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"Food"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_category"><a class="link" href="#_create_category">Create category</a></h3>
+<div class="paragraph">
+<p>A <code>POST</code> request is used to create a category.</p>
+</div>
+<div class="sect3">
+<h4 id="_request_structure"><a class="link" href="#_request_structure">Request structure</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id of the category</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the category</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_response_structure_3"><a class="link" href="#_response_structure_3">Response structure</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id of the category</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the category</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_request_3"><a class="link" href="#_example_request_3">Example request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -X POST -H 'Content-Type: application/json;charset=UTF-8' -d '{"id":"","name":"New Category"}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_response_3"><a class="link" href="#_example_response_3">Example response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
+Content-Type: application/json;charset=UTF-8
+Content-Length: 67
+
+{"id":"New Category","name":"241eb0d4-ca36-4f7b-9a0f-8fc494cc2a74"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_update_category"><a class="link" href="#_update_category">Update category</a></h3>
+<div class="paragraph">
+<p>A <code>PUT</code> request is used to update a category.</p>
+</div>
+<div class="sect3">
+<h4 id="_request_structure_2"><a class="link" href="#_request_structure_2">Request structure</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id of the category</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the category</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_response_structure_4"><a class="link" href="#_response_structure_4">Response structure</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id of the category</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the category</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_request_4"><a class="link" href="#_example_request_4">Example request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -X PUT -H 'Content-Type: application/json;charset=UTF-8' -d '{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"New name"}'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_response_4"><a class="link" href="#_example_response_4">Example response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 63
+
+{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"New name"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_category"><a class="link" href="#_delete_category">Delete category</a></h3>
+<div class="paragraph">
+<p>A <code>DELETE</code> request is used to delete a category.</p>
+</div>
+<div class="sect3">
+<h4 id="_path_parameters_2"><a class="link" href="#_path_parameters_2">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. /categories/{categoryId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>categoryId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Id of category to delete</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_request_5"><a class="link" href="#_example_request_5">Example request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories/c0111df8-96c0-4c33-93f5-f3222931fce2' -i -X DELETE -H 'Accept: application/json;charset=UTF-8'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_example_response_5"><a class="link" href="#_example_response_5">Example response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 204 No Content</code></pre>
 </div>
 </div>
 </div>
@@ -599,7 +919,7 @@ Content-Length: 121
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-03-05 17:49:04 +00:00
+Last updated 2017-03-12 21:25:15 +00:00
 </div>
 </div>
 </body>

@@ -14,4 +14,8 @@ public interface CategoryService{
 
     Iterable<Category> findByName(String categoryName);
 
+    Optional<Category> findById(String categoryId);
+
+    Optional<Category> update(Category category);
+
 }
