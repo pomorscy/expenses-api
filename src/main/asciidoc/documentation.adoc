@@ -75,15 +75,15 @@ A `GET` request is used to get a full list of categories.
 
 ==== Response structure
 
-include::{snippets}/list-categories/response-fields.adoc[]
+include::{snippets}/should-return-list-of-categories/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/list-categories/curl-request.adoc[]
+include::{snippets}/should-return-list-of-categories/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/list-categories/http-response.adoc[]
+include::{snippets}/should-return-list-of-categories/http-response.adoc[]
 
 === Get category
 
@@ -91,19 +91,19 @@ A `GET` request is used to get a category details.
 
 ==== Path parameters
 
-include::{snippets}/get-category/path-parameters.adoc[]
+include::{snippets}/should-return-category-found-by-id/path-parameters.adoc[]
 
 ==== Response structure
 
-include::{snippets}/get-category/response-fields.adoc[]
+include::{snippets}/should-return-category-found-by-id/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/get-category/curl-request.adoc[]
+include::{snippets}/should-return-category-found-by-id/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/get-category/http-response.adoc[]
+include::{snippets}/should-return-category-found-by-id/http-response.adoc[]
 
 === Create category
 
@@ -111,19 +111,19 @@ A `POST` request is used to create a category.
 
 ==== Request structure
 
-include::{snippets}/create-category/request-fields.adoc[]
+include::{snippets}/should-create-new-category/request-fields.adoc[]
 
 ==== Response structure
 
-include::{snippets}/create-category/response-fields.adoc[]
+include::{snippets}/should-create-new-category/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/create-category/curl-request.adoc[]
+include::{snippets}/should-create-new-category/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/create-category/http-response.adoc[]
+include::{snippets}/should-create-new-category/http-response.adoc[]
 
 === Update category
 
@@ -131,19 +131,19 @@ A `PUT` request is used to update a category.
 
 ==== Request structure
 
-include::{snippets}/update-category/request-fields.adoc[]
+include::{snippets}/should-update-category/request-fields.adoc[]
 
 ==== Response structure
 
-include::{snippets}/update-category/response-fields.adoc[]
+include::{snippets}/should-update-category/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/update-category/curl-request.adoc[]
+include::{snippets}/should-update-category/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/update-category/http-response.adoc[]
+include::{snippets}/should-update-category/http-response.adoc[]
 
 === Delete category
 
@@ -151,12 +151,12 @@ A `DELETE` request is used to delete a category.
 
 ==== Path parameters
 
-include::{snippets}/delete-category/path-parameters.adoc[]
+include::{snippets}/should-delete-category/path-parameters.adoc[]
 
 ==== Example request
 
-include::{snippets}/delete-category/curl-request.adoc[]
+include::{snippets}/should-delete-category/curl-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/delete-category/http-response.adoc[]
+include::{snippets}/should-delete-category/http-response.adoc[]

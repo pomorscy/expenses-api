@@ -618,9 +618,15 @@ use of HTTP status codes.</p>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 121
+Content-Length: 146
 
-[{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"Food"},{"id":"d4344204-35d3-48f2-a348-4488f6861249","name":"Cool"}]</code></pre>
+[ {
+  "id" : "d29c21f9-8b4f-4ccb-b5f5-26be490caa3d",
+  "name" : "Food"
+}, {
+  "id" : "48c190fb-ca62-4270-82d9-ca6e2072d9b3",
+  "name" : "Cool"
+} ]</code></pre>
 </div>
 </div>
 </div>
@@ -685,7 +691,7 @@ Content-Length: 121
 <h4 id="_example_request_2"><a class="link" href="#_example_request_2">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories/c0111df8-96c0-4c33-93f5-f3222931fce2' -i -H 'Accept: application/json;charset=UTF-8'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories/d29c21f9-8b4f-4ccb-b5f5-26be490caa3d' -i -H 'Accept: application/json;charset=UTF-8'</code></pre>
 </div>
 </div>
 </div>
@@ -695,9 +701,12 @@ Content-Length: 121
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 59
+Content-Length: 70
 
-{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"Food"}</code></pre>
+{
+  "id" : "d29c21f9-8b4f-4ccb-b5f5-26be490caa3d",
+  "name" : "Food"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -769,7 +778,10 @@ Content-Length: 59
 <h4 id="_example_request_3"><a class="link" href="#_example_request_3">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -X POST -H 'Content-Type: application/json;charset=UTF-8' -d '{"id":"","name":"New Category"}'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -X POST -H 'Content-Type: application/json;charset=UTF-8' -d '{
+  "id" : "",
+  "name" : "New Category"
+}'</code></pre>
 </div>
 </div>
 </div>
@@ -779,9 +791,12 @@ Content-Length: 59
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 67
+Content-Length: 78
 
-{"id":"New Category","name":"241eb0d4-ca36-4f7b-9a0f-8fc494cc2a74"}</code></pre>
+{
+  "id" : "New Category",
+  "name" : "ba49cd27-f68c-4dc8-beda-42a860406ac7"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -853,7 +868,10 @@ Content-Length: 67
 <h4 id="_example_request_4"><a class="link" href="#_example_request_4">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -X PUT -H 'Content-Type: application/json;charset=UTF-8' -d '{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"New name"}'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories' -i -X PUT -H 'Content-Type: application/json;charset=UTF-8' -d '{
+  "id" : "d29c21f9-8b4f-4ccb-b5f5-26be490caa3d",
+  "name" : "New name"
+}'</code></pre>
 </div>
 </div>
 </div>
@@ -863,9 +881,12 @@ Content-Length: 67
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 63
+Content-Length: 74
 
-{"id":"c0111df8-96c0-4c33-93f5-f3222931fce2","name":"New name"}</code></pre>
+{
+  "id" : "d29c21f9-8b4f-4ccb-b5f5-26be490caa3d",
+  "name" : "New name"
+}</code></pre>
 </div>
 </div>
 </div>
@@ -901,7 +922,7 @@ Content-Length: 63
 <h4 id="_example_request_5"><a class="link" href="#_example_request_5">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories/c0111df8-96c0-4c33-93f5-f3222931fce2' -i -X DELETE -H 'Accept: application/json;charset=UTF-8'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/categories/d29c21f9-8b4f-4ccb-b5f5-26be490caa3d' -i -X DELETE -H 'Accept: application/json;charset=UTF-8'</code></pre>
 </div>
 </div>
 </div>
@@ -919,7 +940,7 @@ Content-Length: 63
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-03-12 21:25:15 +00:00
+Last updated 2017-03-18 21:56:16 +00:00
 </div>
 </div>
 </body>

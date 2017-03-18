@@ -4,15 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import us.pomorscy.expenses.domain.Category;
 import us.pomorscy.expenses.services.CategoryService;
 
@@ -24,7 +23,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -34,27 +33,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static us.pomorscy.expenses.TestDataHelper.FOOD_CATEGORY;
 import static us.pomorscy.expenses.TestDataHelper.SAMPLE_CATEGORIES;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(CategoryController.class)
-@AutoConfigureRestDocs("target/generated-snippets")
-public class CategoryControllerTest{
 
-    @Autowired
+@RunWith(MockitoJUnitRunner.class)
+public class CategoryControllerTest extends Documentation {
+
     private MockMvc mockMvc;
 
-    @MockBean
+    @Mock
     private CategoryService categoryService;
+
+    @InjectMocks
+    private CategoryController categoryController;
 
     private final FieldDescriptor[] CATEGORY_DESCRIPTOR = new FieldDescriptor[]{
             fieldWithPath("id").description("Id of the category"),
             fieldWithPath("name").description("Name of the category")};
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Before
     public void setUp(){
         Mockito.reset(categoryService);
+        mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
+                .apply(documentationConfiguration(restDocumentation))
+                .alwaysDo(documentationHandler).build();
     }
 
     @Test
@@ -72,13 +74,13 @@ public class CategoryControllerTest{
                 .andExpect(jsonPath("$[1].name", is(SAMPLE_CATEGORIES.get(1).getName())))
                 //document
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString()))
-                .andDo(document("list-categories", responseFields(
+                .andDo(documentationHandler.document(responseFields(
                         fieldWithPath("[]").description("Array of categories"))
                         .andWithPrefix("[].", CATEGORY_DESCRIPTOR)));
     }
 
     @Test
-    public void shouldReturnFoundCategoryById() throws Exception{
+    public void shouldReturnCategoryFoundById() throws Exception{
         //given
         Category expectedCategory = FOOD_CATEGORY;
         when(categoryService.findById(expectedCategory.getId())).thenReturn(Optional.of(expectedCategory));
@@ -89,7 +91,7 @@ public class CategoryControllerTest{
                 .andExpect(jsonPath("$.id", is(expectedCategory.getId())))
                 .andExpect(jsonPath("$.name", is(expectedCategory.getName())))
                 //document
-                .andDo(document("get-category", pathParameters(
+                .andDo(documentationHandler.document(pathParameters(
                         parameterWithName("categoryId").description("Id of requested category")),
                         responseFields(CATEGORY_DESCRIPTOR)));
     }
@@ -116,7 +118,7 @@ public class CategoryControllerTest{
                 .andExpect(jsonPath("$.id", is(expectedCategory.getId())))
                 .andExpect(jsonPath("$.name", is(expectedCategory.getName())))
                 //document
-                .andDo(document("create-category", requestFields(CATEGORY_DESCRIPTOR), responseFields(CATEGORY_DESCRIPTOR)));
+                .andDo(documentationHandler.document(requestFields(CATEGORY_DESCRIPTOR), responseFields(CATEGORY_DESCRIPTOR)));
     }
 
     @Test
@@ -142,7 +144,7 @@ public class CategoryControllerTest{
                 .andExpect(jsonPath("$.id", is(expectedCategory.getId())))
                 .andExpect(jsonPath("$.name", is(expectedCategory.getName())))
                 //document
-                .andDo(document("update-category", requestFields(CATEGORY_DESCRIPTOR), responseFields(CATEGORY_DESCRIPTOR)));
+                .andDo(documentationHandler.document(requestFields(CATEGORY_DESCRIPTOR), responseFields(CATEGORY_DESCRIPTOR)));
     }
 
     @Test
@@ -165,7 +167,7 @@ public class CategoryControllerTest{
         mockMvc.perform(delete("/categories/{categoryId}", category.getId()).accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNoContent())
                 //document
-                .andDo(document("delete-category", pathParameters(
+                .andDo(documentationHandler.document(pathParameters(
                         parameterWithName("categoryId").description("Id of category to delete"))));
     }
 
