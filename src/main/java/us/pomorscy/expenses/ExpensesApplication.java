@@ -10,13 +10,13 @@ import us.pomorscy.expenses.web.json.ExpensesObjectMapper;
 @SpringBootApplication
 public class ExpensesApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ExpensesApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ExpensesApplication.class, args);
+    }
 
-	@Bean
-	@Primary
-	public ObjectMapper serializingObjectMapper() {
-		return new ExpensesObjectMapper();
-	}
+    @Bean
+    @Primary
+    public ObjectMapper serializingObjectMapper() {
+        return new ExpensesObjectMapper();
+    }
 }
